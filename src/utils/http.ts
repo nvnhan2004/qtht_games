@@ -31,7 +31,7 @@ class Http{
         this.refreshTokenExpiry = new Date()
         this.refreshTokenRequest = null
         this.instance = axios.create({
-            baseURL: 'https://localhost:7196/api/',
+            baseURL: process.env.REACT_APP_API_ENDPOINT,
             // timeout: 10000,
             headers: {
                 'Content-Type': 'application/json',
