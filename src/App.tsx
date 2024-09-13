@@ -1,24 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
+import useRouteElements from './useRouteElements'
 import './App.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ErrorBoundary from './pages/ErrorBoundary';
+import { useIsFetching, useIsMutating } from '@tanstack/react-query'
+import Spinner from './components/common/Spinner';
 
 function App() {
+  const routeElements = useRouteElements()
+  const isFetching = useIsFetching()
+  const isMutating = useIsMutating()
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="wrapper">
+      <ErrorBoundary>
+        {isFetching + isMutating !== 0 && <Spinner />}
+        {routeElements}
+        <ToastContainer />
+      </ErrorBoundary>
     </div>
   );
 }
